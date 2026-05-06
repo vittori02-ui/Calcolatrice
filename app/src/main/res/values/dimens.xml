@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cradius">100dp</dimen>
+    <dimen name="radiusMin">4dp</dimen>
+    <dimen name="testoDim">20sp</dimen>
+    <dimen name="testoDim2">18sp</dimen>
+    <dimen name="margin">4dp</dimen>
+</resources>
