@@ -25,6 +25,19 @@
         android:textSize="24sp" />
 
     <TextView
+        android:id="@+id/loperazione_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:backgroundTint="@color/white"
+        android:elegantTextHeight="false"
+        android:gravity="center_vertical"
+        android:textAlignment="textEnd"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+
+    <TextView
         android:id="@+id/lrisultato_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
