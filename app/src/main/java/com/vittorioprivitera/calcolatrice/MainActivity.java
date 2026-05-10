@@ -9,9 +9,12 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
-    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn;
+    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc;
     EditText lOperazione;
     TextView lRisultato;
+
+    float num1,num2,ris;
+    String operazione,testoOper;
 
     private void inserisciCifra(String cifra) {
         int cursore=lOperazione.getSelectionStart();
@@ -19,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb=new StringBuilder(testo);
         sb.insert(cursore,cifra);
         lOperazione.setText(sb.toString());
-        //Sposta il cursore in avanti di una posizione cosi posso aggiungere in modo giusto
+        //Sposta il cursore in avanti di una posizione cosi posso aggiungere
         lOperazione.setSelection(cursore+cifra.length());
     }
     @Override
@@ -33,6 +36,21 @@ public class MainActivity extends AppCompatActivity {
         //bZero_btn=findViewById(R.id.b0_btn);
         lOperazione=findViewById(R.id.lOperazione_txt);
         lRisultato=findViewById(R.id.lrisultato_txt);
+        bAllc=findViewById(R.id.BCanc_btn);
+
+
+        bAllc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                num1=0;
+                num2=0;
+                ris=0;
+                operazione="";
+                lOperazione.setText("");
+                lRisultato.setText("");
+                testoOper="";
+            }
+        });
 
 
         b1_btn=findViewById(R.id.b1_btn);
@@ -68,6 +86,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 inserisciCifra("5");
+            }
+        });
+        b6_btn=findViewById(R.id.b6_btn);
+        b6_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inserisciCifra("6");
+            }
+        });
+        b7_btn=findViewById(R.id.b7_btn);
+        b7_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inserisciCifra("7");
+            }
+        });
+        b8_btn=findViewById(R.id.b8_btn);
+        b8_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inserisciCifra("8");
+            }
+        });
+        b9_btn=findViewById(R.id.b9_btn);
+        b9_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inserisciCifra("9");
             }
         });
     }
