@@ -9,7 +9,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
-    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc;
+    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual;
     EditText lOperazione;
     TextView lRisultato;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         lOperazione=findViewById(R.id.lOperazione_txt);
         lRisultato=findViewById(R.id.lrisultato_txt);
         bAllc=findViewById(R.id.BCanc_btn);
-
+        bUgual=findViewById(R.id.bUguale_btn);
 
         bAllc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +52,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        bUgual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                testoOper=lOperazione.getText().toString();
+                try
+                {
+                    num2=Float.parseFloat(lOperazione.getText().toString());
+                    switch(operazione)
+                    {
+                        case "+":
+                            ris=num1+num2;
+                            break;
+                        case "-":
+                            ris=num1-num2;
+                            break;
+                        case "*":
+                            ris=num1*num2;
+                            break;
+                        case "/":
+                            if(num2==0)return;
+                            ris=num1/num2;
+                            break;
+                    }
+                    lRisultato.setText(String.valueOf(ris));
+
+                } catch (Exception e)
+                {
+
+                }
+            }
+        });
 
         b1_btn=findViewById(R.id.b1_btn);
         b1_btn.setOnClickListener(new View.OnClickListener() {
@@ -116,5 +147,6 @@ public class MainActivity extends AppCompatActivity {
                 inserisciCifra("9");
             }
         });
+
     }
 }
