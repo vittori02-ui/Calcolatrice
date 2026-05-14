@@ -5,14 +5,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
-
+import android.widget.LinearLayout;
 public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
-    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual;
+    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual,calcSci;
     EditText lOperazione;
     TextView lRisultato;
-
+    LinearLayout layer0,layer1;
     float num1,num2,ris;
     String operazione,testoOper;
     private String formattaRis(float valore)
@@ -47,7 +47,23 @@ public class MainActivity extends AppCompatActivity {
         lRisultato=findViewById(R.id.lrisultato_txt);
         bAllc=findViewById(R.id.BCanc_btn);
         bUgual=findViewById(R.id.bUguale_btn);
+        layer1=findViewById(R.id.linear1);
+        layer0=findViewById(R.id.layer0);
 
+        calcSci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(layer1.getVisibility()==View.VISIBLE)
+                {
+                    layer1.setVisibility(View.GONE);
+                    layer0.setVisibility(View.GONE);
+                } else
+                {
+                    layer1.setVisibility(View.VISIBLE);
+                    layer0.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         bAllc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -60,6 +60,117 @@
             android:layout_weight="3"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/layer0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="4">
+
+                <Button
+                    android:id="@+id/besp2_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="x²"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim"
+                    app:cornerRadius="@dimen/cradius" />
+
+                <Button
+                    android:id="@+id/bRad2_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="√"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim"
+                    app:cornerRadius="@dimen/cradius" />
+
+                <Button
+                    android:id="@+id/bRad3_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="∛"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim"
+                    app:cornerRadius="@dimen/cradius" />
+
+                <Button
+                    android:id="@+id/bFatto_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="!"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim"
+                    app:cornerRadius="@dimen/cradius" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/bSen_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="sen"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim2" />
+
+                <Button
+                    android:id="@+id/bCos_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="cos"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim2" />
+
+                <Button
+                    android:id="@+id/bLog_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="log"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim2" />
+
+                <Button
+                    android:id="@+id/bPotenza_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorButton"
+                    android:text="^"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/testoDim2" />
+
+            </LinearLayout>
 
 
             <LinearLayout
