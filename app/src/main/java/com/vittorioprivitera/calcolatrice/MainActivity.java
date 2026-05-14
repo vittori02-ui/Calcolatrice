@@ -15,7 +15,16 @@ public class MainActivity extends AppCompatActivity {
 
     float num1,num2,ris;
     String operazione,testoOper;
-
+    private String formattaRis(float valore)
+    {
+        if(valore==(long)valore) return String.format("%d",(long)valore);
+        else
+        {
+            String s=String.format("%.6f",valore).replace(",",".");
+            if(s.contains("."))s=s.replaceAll("0*$", "").replaceAll("\\.$", "");
+            return s;
+        }
+    }
     private void inserisciCifra(String cifra) {
         int cursore=lOperazione.getSelectionStart();
         String testo=lOperazione.getText().toString();
@@ -75,11 +84,75 @@ public class MainActivity extends AppCompatActivity {
                             ris=num1/num2;
                             break;
                     }
-                    lRisultato.setText(String.valueOf(ris));
+                    lRisultato.setText(formattaRis(ris));
 
                 } catch (Exception e)
                 {
 
+                }
+            }
+        });
+
+        bPiu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(lRisultato.getText().toString().isEmpty())return;
+                else
+                {
+                    num1=Integer.parseInt(lRisultato.getText().toString());
+                    testoOper=num1+"+";
+                    lRisultato.setText("");
+                    lOperazione.setText("");
+                    lOperazione.append(testoOper);
+                    operazione="+";
+                }
+            }
+        });
+
+        bMeno_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(lRisultato.getText().toString().isEmpty())return;
+                else
+                {
+                    num1=Integer.parseInt(lRisultato.getText().toString());
+                    testoOper=num1+"-";
+                    lRisultato.setText("");
+                    lOperazione.setText("");
+                    lOperazione.append(testoOper);
+                    operazione="-";
+                }
+            }
+        });
+
+        bPer_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(lRisultato.getText().toString().isEmpty())return;
+                else
+                {
+                    num1=Integer.parseInt(lRisultato.getText().toString());
+                    testoOper=num1+"x";
+                    lRisultato.setText("");
+                    lOperazione.setText("");
+                    lOperazione.append(testoOper);
+                    operazione="x";
+                }
+            }
+        });
+
+        bDiv_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(lRisultato.getText().toString().isEmpty())return;
+                else
+                {
+                    num1=Integer.parseInt(lRisultato.getText().toString());
+                    testoOper=num1+"/";
+                    lRisultato.setText("");
+                    lOperazione.setText("");
+                    lOperazione.append(testoOper);
+                    operazione="/";
                 }
             }
         });
