@@ -10,12 +10,45 @@ public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
     Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual,calcSci,bVirg,
-            blog,bPotenza,bPerc;
+            blog,bPotenza,bPerc,bCanc,bRad2;
     EditText lOperazione;
     TextView lRisultato;
     LinearLayout layer0,layer1;
     float num1,num2,ris;
     String operazione,testoOper;
+    private void cancellaCifra()
+    {
+        int cursore=lOperazione.getSelectionStart();
+        String testo=lOperazione.getText().toString();
+        if(testo.isEmpty()) return;
+        if(cursore==0)cursore=testo.length();
+        StringBuilder sb=new StringBuilder(testo);
+        sb.deleteCharAt(cursore-1);
+        lOperazione.setText(sb.toString());
+        lOperazione.setSelection(cursore-1);//rimetto il cursore dove era prima
+        int cur=lOperazione.getText().toString().indexOf(operazione);
+        if(cur==-1)
+        {
+            operazione="";
+        }
+        System.out.println(operazione);
+    }
+
+    private void gestioneOpe2(String ope)
+    {
+        if(!lRisultato.getText().toString().equals("")&&!operazione.isEmpty())
+        {
+            num1=Float.parseFloat(lRisultato.getText().toString());
+            lOperazione.setText(formattaRis(num1)+ope);
+            lOperazione.setSelection(lOperazione.getText().toString().length());
+            operazione=ope;
+        }
+        else
+        {
+            inserisciCifra(ope);
+            operazione=ope;
+        }
+    }
     private String formattaRis(float valore)
     {
         if(valore==(long)valore) return String.format("%d",(long)valore);
@@ -84,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
         blog=findViewById(R.id.bLog_btn);
         bPotenza=findViewById(R.id.bPotenza_btn);
         bPerc=findViewById(R.id.bPer_btn);
-
+        bCanc=findViewById(R.id.BCanc_btn);
+        bRad2=findViewById(R.id.bRad2_btn);
         calcSci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +165,12 @@ public class MainActivity extends AppCompatActivity {
                 testoOper="";
             }
         });
-
+        bCanc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancellaCifra();
+            }
+        });
         bVirg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,6 +216,13 @@ public class MainActivity extends AppCompatActivity {
                 {
 
                 }
+            }
+        });
+
+        bRad2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe2("√");
             }
         });
 
