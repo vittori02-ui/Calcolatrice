@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
-    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual,calcSci;
+    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual,calcSci,bVirg;
     EditText lOperazione;
     TextView lRisultato;
     LinearLayout layer0,layer1;
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         lRisultato=findViewById(R.id.lrisultato_txt);
         bAllc=findViewById(R.id.BCanc_btn);
         bUgual=findViewById(R.id.bUguale_btn);
+        bVirg=findViewById(R.id.bVirg_btn);
         layer1=findViewById(R.id.linear1);
         layer0=findViewById(R.id.layer0);
 
@@ -74,6 +75,22 @@ public class MainActivity extends AppCompatActivity {
                 lOperazione.setText("");
                 lRisultato.setText("");
                 testoOper="";
+            }
+        });
+
+        bVirg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String testo=lOperazione.getText().toString();
+                int posOp=-1;
+                if(!operazione.isEmpty()) posOp=testo.indexOf(operazione);
+                String parteAttuale;
+                if(posOp==-1)parteAttuale=testo;// Non c'è operatore, stiamo scrivendo num1
+                else parteAttuale=testo.substring(posOp + 1);// C'è l'operatore, stiamo scrivendo num2
+                if(!parteAttuale.contains(".")) {
+                    if (parteAttuale.isEmpty()||parteAttuale.equals("-"))inserisciCifra("0.");
+                    else inserisciCifra(".");
+                }
             }
         });
 
