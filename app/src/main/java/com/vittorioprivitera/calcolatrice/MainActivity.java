@@ -9,7 +9,8 @@ import android.widget.LinearLayout;
 public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
-    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual,calcSci,bVirg;
+    Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual,calcSci,bVirg,
+            blog,bPotenza,bPerc;
     EditText lOperazione;
     TextView lRisultato;
     LinearLayout layer0,layer1;
@@ -25,6 +26,36 @@ public class MainActivity extends AppCompatActivity {
             return s;
         }
     }
+    private void gestioneOpe(String ope) {
+        String testo=lOperazione.getText().toString();
+        if(ope.equals("-")) {
+            if (!operazione.isEmpty() && (testo.endsWith("x") || testo.endsWith("÷"))) {
+                inserisciCifra("-");
+                return;
+            }
+
+        }
+        if(!operazione.isEmpty()) {
+            if (testo.endsWith(operazione) && !testo.endsWith("!") && !testo.endsWith("%")) {
+                testo = testo.substring(0, testo.length() - 1);
+                lOperazione.setText(testo + ope);
+                lOperazione.setSelection(lOperazione.getText().length());
+                operazione = ope;
+                return;
+            }
+            if (!lRisultato.getText().toString().isEmpty()) {
+                num1 = Float.parseFloat(lRisultato.getText().toString());
+                lOperazione.setText(formattaRis(num1) + ope);
+                lOperazione.setSelection(lOperazione.getText().toString().length());
+                lRisultato.setText("");
+                operazione = ope;
+                return;
+            }
+        }
+        operazione=ope;
+    }
+
+
     private void inserisciCifra(String cifra) {
         int cursore=lOperazione.getSelectionStart();
         String testo=lOperazione.getText().toString();
@@ -50,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
         bVirg=findViewById(R.id.bVirg_btn);
         layer1=findViewById(R.id.linear1);
         layer0=findViewById(R.id.layer0);
+        blog=findViewById(R.id.bLog_btn);
+        bPotenza=findViewById(R.id.bPotenza_btn);
+        bPerc=findViewById(R.id.bPer_btn);
 
         calcSci.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +97,26 @@ public class MainActivity extends AppCompatActivity {
                     layer1.setVisibility(View.VISIBLE);
                     layer0.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+        blog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //gestioneOpe("log"); non funziona
+            }
+        });
+
+        bPotenza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe("^");
+            }
+        });
+
+        bPerc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe("%");
             }
         });
         bAllc.setOnClickListener(new View.OnClickListener() {
