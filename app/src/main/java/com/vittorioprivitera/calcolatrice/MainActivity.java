@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
     Button bPiu_btn,bMeno_btn,bPer_btn,bDiv_btn,bAllc,bUgual,calcSci,bVirg,
-            blog,bPotenza,bPerc,bCanc,bRad2;
+            blog,bPotenza,bPerc,bCanc,bRad2,bSeconda,bRad3,bFatt,bSeno,bCosn;
     EditText lOperazione;
     TextView lRisultato;
     LinearLayout layer0,layer1;
@@ -61,15 +61,21 @@ public class MainActivity extends AppCompatActivity {
     }
     private void gestioneOpe(String ope) {
         String testo=lOperazione.getText().toString();
-        if(ope.equals("-")) {
+        if(ope.equals("-"))
+        {
             if (!operazione.isEmpty() && (testo.endsWith("x") || testo.endsWith("÷"))) {
                 inserisciCifra("-");
                 return;
             }
-
+            if(testo.isEmpty())
+            {
+                inserisciCifra("-");
+                return;
+            }
         }
+        if(testo.isEmpty()||testo.endsWith("-")||testo.endsWith("+")) return;
         if(!operazione.isEmpty()) {
-            if (testo.endsWith(operazione) && !testo.endsWith("!") && !testo.endsWith("%")) {
+            if (testo.endsWith(operazione)) {
                 testo = testo.substring(0, testo.length() - 1);
                 lOperazione.setText(testo + ope);
                 lOperazione.setSelection(lOperazione.getText().length());
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
+        inserisciCifra(ope);
         operazione=ope;
     }
 
@@ -119,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
         bPerc=findViewById(R.id.bPer_btn);
         bCanc=findViewById(R.id.BCanc_btn);
         bRad2=findViewById(R.id.bRad2_btn);
+        bSeno=findViewById(R.id.bSen_btn);
+        bCosn=findViewById(R.id.bCos_btn);
+        bSeconda=findViewById(R.id.besp2_btn);
+        bRad3=findViewById(R.id.bRad3_btn);
+        bFatt=findViewById(R.id.bFatto_btn);
         calcSci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,10 +145,53 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        bSeconda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe("^2");
+            }
+        });
+
+        bRad2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe2("√");
+            }
+        });
+
+        bRad3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe2("∛");
+            }
+        });
+
+        bFatt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe("!");
+            }
+        });
+
+        bSeno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe2("sen");
+            }
+        });
+
+        bCosn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestioneOpe2("cos");
+            }
+        });
+
         blog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //gestioneOpe("log"); non funziona
+                gestioneOpe2("log");
             }
         });
 
