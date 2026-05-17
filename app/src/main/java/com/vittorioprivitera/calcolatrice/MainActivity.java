@@ -6,6 +6,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     Button bZero_btn,b1_btn,b2_btn,b3_btn,b4_btn,b5_btn,
             b6_btn,b7_btn,b8_btn,b9_btn;
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             String s=String.format("%.6f",valore).replace(",",".");
-            if(s.contains("."))s=s.replaceAll("0*$", "").replaceAll("\\.$", "");
+            if(s.contains("."))s=s.replaceAll("0*$", "").replaceAll("\\.$", "");//sono dei simboli standard per formattare togliendo le due cifre
             return s;
         }
     }
@@ -105,6 +109,60 @@ public class MainActivity extends AppCompatActivity {
         //Sposta il cursore in avanti di una posizione cosi posso aggiungere
         lOperazione.setSelection(cursore+cifra.length());
     }
+    //in modo tale da avere l'ordine giusto
+    private ArrayList<String> creaOpe(String espressione)
+    {
+        String split="(?<=[-+x÷^√∛!]|sen|cos|log|%)|(?=[-+x÷^√∛!]|sen|cos|log|%)"; //il regex
+        String[] array=espressione.split(split);
+        return new ArrayList<>(Arrays.asList(array));
+    }
+    private float calcoloTotale(String espre)
+    {
+        ArrayList<String> ope = creaOpe(espre);
+        System.out.println(ope);
+        float risParz;
+        int i=0;
+        while(i<ope.size()) {
+            String t=ope.get(i);
+            if (t.equals("x")||t.equals("÷")) {
+                float a=Float.parseFloat(ope.get(i-1));
+                float b=Float.parseFloat(ope.get(i+1));
+                if (t.equals("x"))risParz=a*b;
+                else if(t.equals("÷")) risParz=a/b;
+                ope.remove(i); // rimuove l'operatore
+                ope.remove(i); // rimuove il secondo numero
+                System.out.println(ope);
+            }
+            else i++;
+        }
+        i=0;
+        while(i<ope.size())
+        {
+            String t=ope.get(i);
+            if (t.equals("+")||t.equals("-"))
+            {
+                float a=Float.parseFloat(ope.get(i-1));
+                float b=Float.parseFloat(ope.get(i+1));
+                if(t.equals("+"))risParz=a+b;
+                else if(numero(ope.get(i-1)))risParz=a-b;
+                System.out.println(ope);
+            }
+            else i++;
+        }
+        return Float.parseFloat(ope.get(0));
+    }
+    private boolean numero(String s)
+    {
+        try
+        {
+            Float.parseFloat(s);
+            return true;
+        } catch (Exception e)
+        {
+            return false;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -342,6 +400,13 @@ public class MainActivity extends AppCompatActivity {
                     lOperazione.append(testoOper);
                     operazione="/";
                 }
+            }
+        });
+
+        bZero_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inserisciCifra("0");
             }
         });
 
