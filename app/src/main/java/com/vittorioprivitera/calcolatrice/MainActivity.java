@@ -122,6 +122,90 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(ope);
         float risParz;
         int i=0;
+        if(ope.size()>1&&ope.get(0).equals("-"))
+        {
+            String numeroNeg="-"+ope.get(1);
+            ope.set(0,numeroNeg);
+            ope.remove(1); //rimuovo il vecchio -
+            System.out.println(ope);
+        }
+        else if(!ope.isEmpty()&&ope.get(0).isEmpty())ope.remove(0);
+        //primo passagio per le operazioni a una direzione
+        System.out.println(ope);
+        float valore;
+        while(i<ope.size())
+        {
+            risParz=0;
+            String t=ope.get(i);
+            if(t.equals("sen")||t.equals("cos")||t.equals("log")||t.equals("√")||t.equals("∛"))
+            {
+                valore=Float.parseFloat(ope.get(i+1));
+                if(t.equals("sen"))risParz=(float)Math.sin(Math.toRadians(valore));
+                else if(t.equals("√"))risParz=(float)Math.sqrt(valore);
+                else if(t.equals("∛"))risParz=(float)Math.cbrt(valore);
+                else if(t.equals("cos"))risParz=(float)Math.cos(Math.toRadians(valore));
+                else if(t.equals("log"))risParz=(float)Math.log10(valore);
+                ope.set(i,String.valueOf(risParz));
+                ope.remove(i+1);
+                System.out.println(ope);
+            }
+            else if(t.equals("!"))
+            {
+                risParz=1;
+                for(int j=1;j<=Float.parseFloat(ope.get(i-1));j++)
+                {
+                    risParz=risParz*j;
+                }
+                ope.set(i-1,String.valueOf(risParz));
+                ope.remove(i);
+                System.out.println(ope);
+            }
+            else if(t.equals("%"))
+            {
+                float a=Float.parseFloat(ope.get(i-1));
+                if(i+1<ope.size()&&numero(ope.get(i+1)))
+                {
+                    float b=Float.parseFloat(ope.get(i+1));
+                    risParz=(a/100)*b;
+                    ope.set(i-1,String.valueOf(risParz));
+                    ope.remove(i); //rimuove l'operazione
+                    ope.remove(i); //rimuove il secondo numero
+                }
+                else
+                {
+                    risParz=a/100;
+                    ope.set(i-1,String.valueOf(risParz));
+                    ope.remove(i);
+                }
+                System.out.println(ope);
+            }
+            else i++;
+        }
+        //secondo passaggio
+        i=0;
+        while(i<ope.size())
+        {
+            String t=ope.get(i);
+            if(t.equals("^")||t.equals("^2"))
+            {
+                float a=Float.parseFloat(ope.get(i-1));
+                if(t.equals("^"))
+                {
+                    float b=Float.parseFloat(ope.get(i+1));
+                    risParz=(float) Math.pow(a,b);
+                    ope.set(i-1,String.valueOf(risParz));
+                    ope.remove(i); //rimuove ^
+                    ope.remove(i); //rimuove l'esponente
+                } else
+                {
+                    risParz=(float)Math.pow(a,2);
+                    ope.set(i-1,String.valueOf(risParz));
+                    ope.remove(i); //rimuove^2
+                }
+                System.out.println(ope);
+            }
+            else i++;
+        }
         while(i<ope.size()) {
             String t=ope.get(i);
             if (t.equals("x")||t.equals("÷")) {
