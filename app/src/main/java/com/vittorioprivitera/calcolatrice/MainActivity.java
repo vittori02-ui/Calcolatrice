@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -67,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
         String testo=lOperazione.getText().toString();
         if(ope.equals("-"))
         {
-            if (!operazione.isEmpty() && (testo.endsWith("x") || testo.endsWith("÷"))) {
+            if(!operazione.isEmpty() && (testo.endsWith("x") || testo.endsWith("÷")||testo.endsWith("^")||testo.endsWith("^2")))
+            {
                 inserisciCifra("-");
                 return;
             }
@@ -78,20 +78,23 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if(testo.isEmpty()||testo.endsWith("-")||testo.endsWith("+")) return;
-        if(!operazione.isEmpty()) {
-            if (testo.endsWith(operazione)) {
-                testo = testo.substring(0, testo.length() - 1);
-                lOperazione.setText(testo + ope);
+        if(!operazione.isEmpty())
+        {
+            if (testo.endsWith(operazione)&&!testo.endsWith("!")&&!testo.endsWith("%"))
+            {
+                testo = testo.substring(0,testo.length()-1);
+                lOperazione.setText(testo+ope);
                 lOperazione.setSelection(lOperazione.getText().length());
-                operazione = ope;
+                operazione=ope;
                 return;
             }
-            if (!lRisultato.getText().toString().isEmpty()) {
+            if(!lRisultato.getText().toString().isEmpty())
+            {
                 num1 = Float.parseFloat(lRisultato.getText().toString());
-                lOperazione.setText(formattaRis(num1) + ope);
+                lOperazione.setText(formattaRis(num1)+ope);
                 lOperazione.setSelection(lOperazione.getText().toString().length());
                 lRisultato.setText("");
-                operazione = ope;
+                operazione=ope;
                 return;
             }
         }
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb=new StringBuilder(testo);
         sb.insert(cursore,cifra);
         lOperazione.setText(sb.toString());
-        //Sposta il cursore in avanti di una posizione cosi posso aggiungere
+        //Sposto il cursore in avanti di una posizione cosi posso aggiungere
         lOperazione.setSelection(cursore+cifra.length());
     }
     //in modo tale da avere l'ordine giusto
@@ -120,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
     {
         ArrayList<String> ope = creaOpe(espre);
         System.out.println(ope);
-        float risParz;
-        int i=0;
         if(ope.size()>1&&ope.get(0).equals("-"))
         {
             String numeroNeg="-"+ope.get(1);
@@ -131,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(!ope.isEmpty()&&ope.get(0).isEmpty())ope.remove(0);
         //primo passagio per le operazioni a una direzione
+        float risParz;
+        int i=0;
         System.out.println(ope);
         float valore;
         while(i<ope.size())
@@ -241,7 +244,8 @@ public class MainActivity extends AppCompatActivity {
         {
             Float.parseFloat(s);
             return true;
-        } catch (Exception e)
+        }
+        catch(Exception e)
         {
             return false;
         }
@@ -255,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         bMeno_btn=findViewById(R.id.bMeno_btn);
         bPer_btn=findViewById(R.id.bPer_btn);
         bDiv_btn=findViewById(R.id.bDiviso_btn);
-        //bZero_btn=findViewById(R.id.b0_btn);
+        bZero_btn=findViewById(R.id.b0_btn);
         lOperazione=findViewById(R.id.lOperazione_txt);
         lRisultato=findViewById(R.id.lrisultato_txt);
         bAllc=findViewById(R.id.BCanc_btn);
@@ -273,6 +277,9 @@ public class MainActivity extends AppCompatActivity {
         bSeconda=findViewById(R.id.besp2_btn);
         bRad3=findViewById(R.id.bRad3_btn);
         bFatt=findViewById(R.id.bFatto_btn);
+        lOperazione.setShowSoftInputOnFocus(false);
+        lOperazione.setInputType(android.text.InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS); // per togliere la linea rossa tipo di correzione
+
         calcSci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -390,6 +397,15 @@ public class MainActivity extends AppCompatActivity {
                 testoOper=lOperazione.getText().toString();
                 try
                 {
+                   if(!testoOper.isEmpty())lRisultato.setText(formattaRis(calcoloTotale(testoOper)));
+                }
+                catch(Exception e)
+                {
+
+                }
+                /*
+                try
+                {
                     num2=Float.parseFloat(lOperazione.getText().toString());
                     switch(operazione)
                     {
@@ -412,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e)
                 {
 
-                }
+                }*/
             }
         });
 
@@ -426,6 +442,8 @@ public class MainActivity extends AppCompatActivity {
         bPiu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                gestioneOpe("+");
+                /*
                 if(lRisultato.getText().toString().isEmpty())return;
                 else
                 {
@@ -435,55 +453,28 @@ public class MainActivity extends AppCompatActivity {
                     lOperazione.setText("");
                     lOperazione.append(testoOper);
                     operazione="+";
-                }
+                }*/
             }
         });
 
         bMeno_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(lRisultato.getText().toString().isEmpty())return;
-                else
-                {
-                    num1=Integer.parseInt(lRisultato.getText().toString());
-                    testoOper=num1+"-";
-                    lRisultato.setText("");
-                    lOperazione.setText("");
-                    lOperazione.append(testoOper);
-                    operazione="-";
-                }
+                gestioneOpe("-");
             }
         });
 
         bPer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(lRisultato.getText().toString().isEmpty())return;
-                else
-                {
-                    num1=Integer.parseInt(lRisultato.getText().toString());
-                    testoOper=num1+"x";
-                    lRisultato.setText("");
-                    lOperazione.setText("");
-                    lOperazione.append(testoOper);
-                    operazione="x";
-                }
+                gestioneOpe("x");
             }
         });
 
         bDiv_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(lRisultato.getText().toString().isEmpty())return;
-                else
-                {
-                    num1=Integer.parseInt(lRisultato.getText().toString());
-                    testoOper=num1+"/";
-                    lRisultato.setText("");
-                    lOperazione.setText("");
-                    lOperazione.append(testoOper);
-                    operazione="/";
-                }
+               gestioneOpe("÷");
             }
         });
 
@@ -557,6 +548,5 @@ public class MainActivity extends AppCompatActivity {
                 inserisciCifra("9");
             }
         });
-
     }
 }

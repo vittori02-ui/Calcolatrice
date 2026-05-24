@@ -18,11 +18,13 @@
         android:backgroundTint="@color/white"
         android:elegantTextHeight="false"
         android:gravity="center_vertical"
+        android:hint="o"
         android:inputType="text"
         android:nestedScrollingEnabled="false"
         android:singleLine="false"
         android:textAlignment="viewEnd"
-        android:textSize="24sp"/>
+        android:textSize="24sp" />
+
 
     <TextView
         android:id="@+id/loperazione_txt"
