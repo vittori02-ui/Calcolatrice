@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     TextView lRisultato;
     LinearLayout layer0,layer1;
     float num1,num2,ris;
-    String operazione,testoOper;
+    String operazione="",testoOper="";
     private void cancellaCifra()
     {
         int cursore=lOperazione.getSelectionStart();
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(!ope.isEmpty()&&ope.get(0).isEmpty())ope.remove(0);
         //primo passagio per le operazioni a una direzione
-        float risParz;
+        float risParz=0;
         int i=0;
         System.out.println(ope);
         float valore;
@@ -209,13 +209,17 @@ public class MainActivity extends AppCompatActivity {
             }
             else i++;
         }
-        while(i<ope.size()) {
+        i=0;
+        while(i<ope.size())
+        {
             String t=ope.get(i);
-            if (t.equals("x")||t.equals("÷")) {
+            if (t.equals("x")||t.equals("÷"))
+            {
                 float a=Float.parseFloat(ope.get(i-1));
                 float b=Float.parseFloat(ope.get(i+1));
                 if (t.equals("x"))risParz=a*b;
                 else if(t.equals("÷")) risParz=a/b;
+                ope.set(i-1,String.valueOf(risParz));
                 ope.remove(i); // rimuove l'operatore
                 ope.remove(i); // rimuove il secondo numero
                 System.out.println(ope);
@@ -232,6 +236,9 @@ public class MainActivity extends AppCompatActivity {
                 float b=Float.parseFloat(ope.get(i+1));
                 if(t.equals("+"))risParz=a+b;
                 else if(numero(ope.get(i-1)))risParz=a-b;
+                ope.set(i-1,String.valueOf(risParz));
+                ope.remove(i);
+                ope.remove(i);
                 System.out.println(ope);
             }
             else i++;
@@ -262,14 +269,15 @@ public class MainActivity extends AppCompatActivity {
         bZero_btn=findViewById(R.id.b0_btn);
         lOperazione=findViewById(R.id.lOperazione_txt);
         lRisultato=findViewById(R.id.lrisultato_txt);
-        bAllc=findViewById(R.id.BCanc_btn);
+        bAllc=findViewById(R.id.BallCanc_btn);
         bUgual=findViewById(R.id.bUguale_btn);
         bVirg=findViewById(R.id.bVirg_btn);
         layer1=findViewById(R.id.linear1);
         layer0=findViewById(R.id.layer0);
+        calcSci=findViewById(R.id.bSci_btn);
         blog=findViewById(R.id.bLog_btn);
         bPotenza=findViewById(R.id.bPotenza_btn);
-        bPerc=findViewById(R.id.bPer_btn);
+        bPerc=findViewById(R.id.BPercent_btn);
         bCanc=findViewById(R.id.BCanc_btn);
         bRad2=findViewById(R.id.bRad2_btn);
         bSeno=findViewById(R.id.bSen_btn);
